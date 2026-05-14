@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Sweet Present - Birthday Gift for You</title>
+    <!-- Google Fonts: Elegant & Romantic -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #FFF9F8;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFCDC9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #7F2020;
+            border-radius: 10px;
+        }
+
+        .opening {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(145deg, #FFF2F0 0%, #FFE4E0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 1s ease, visibility 1s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .opening.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .opening-content {
+            text-align: center;
+            padding: 2rem;
+            max-width: 700px;
+            animation: floatGlow 2.5s infinite ease-in-out;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translateY(0px); text-shadow: 0 0 0 rgba(127,32,32,0);}
+            50% { transform: translateY(-12px); text-shadow: 0 10px 25px rgba(127,32,32,0.2);}
+            100% { transform: translateY(0px); text-shadow: 0 0 0 rgba(127,32,32,0);}
+        }
+
+        .happy-birthday {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 9vw, 4.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #7F2020, #B83B3B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nama-penerima {
+            font-size: clamp(1.8rem, 6vw, 3rem);
+            font-weight: 700;
+            color: #7F2020;
+            margin: 0.5rem 0;
+            font-family: 'Playfair Display', serif;
+            border-bottom: 2px dashed #FFCDC9;
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #B65C5C;
+            margin-top: 1rem;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .btn-open {
+            margin-top: 2.5rem;
+            background: #7F2020;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            box-shadow: 0 15px 25px rgba(127,32,32,0.3);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-open:hover {
+            background: #9E2E2E;
+            transform: scale(1.05);
+        }
+
+        .main-content {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 0s linear 1.2s;
+            background: #FFFFFF;
+        }
+
+        .main-content.show {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 0s linear 0s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .message-card {
+            background: #FFFFFF;
+            border-radius: 2rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 25px 45px -12px rgba(127,32,32,0.2);
+            border: 1px solid #FFE0DD;
+            transition: transform 0.3s;
+        }
+
+        .message-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .message-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            color: #7F2020;
+            border-left: 5px solid #FFCDC9;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .message-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #2F2E2E;
+            white-space: pre-line;
+            font-weight: 500;
+        }
+
+        .gallery-section {
+            margin: 3rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 1.5rem;
+            box-shadow: 0 18px 30px -10px rgba(0,0,0,0.1);
+            background: #FFCDC9;
+            transition: all 0.4s;
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+            display: block;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .music-player {
+            background: #FFF9F7;
+            border-radius: 60px;
+            padding: 0.8rem 1.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 5px 15px rgba(127,32,32,0.1);
+            border: 1px solid #FFCDC9;
+            margin: 2rem 0;
+        }
+
+        .music-player button {
+            background: #7F2020;
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .music-player button:hover {
+            background: #A13030;
+            transform: scale(1.05);
+        }
+
+        .track-name {
+            font-weight: 600;
+            color: #7F2020;
+        }
+
+        .heart {
+            position: fixed;
+            bottom: 10px;
+            pointer-events: none;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            animation: flyHeart 5s linear forwards;
+            z-index: 999;
+        }
+
+        @keyframes flyHeart {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(20deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 680px) {
+            .gallery-grid {
+                gap: 1rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #B87A7A;
+            border-top: 1px solid #FFCDC9;
+            margin-top: 2rem;
+        }
+
+        /* Info panel untuk membantu user */
+        .info-panel {
+            background: #FFF0EE;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            border: 1px solid #FFCDC9;
+            font-size: 0.85rem;
+        }
+        
+        .info-panel i {
+            color: #7F2020;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="openingPage" class="opening">
+    <div class="opening-content">
+        <div class="happy-birthday">Happy Birthday</div>
+        <div class="nama-penerima" id="namaTarget">Dewi-ku</div>
+        <div class="subtitle">✨ Setiap detik bersamamu adalah hadiah terindah ✨</div>
+        <button id="openGiftBtn" class="btn-open">
+            <i class="fas fa-gift"></i> Open Gift
+        </button>
+    </div>
+</div>
+
+<div id="mainContent" class="main-content">
+    <div class="container">
+
+        <div class="message-card">
+            <div class="message-title">
+                <i class="fas fa-envelope-open-text" style="color: #7F2020; margin-right: 12px;"></i> Surat Cinta untukmu
+            </div>
+            <div class="message-text" id="editableLongMessage">
+                Special Birthday yaa Dewiiii 🌟<br><br>
+                Semoga di usia 19 tahun ini, isi hidup kamu banyak hal baik.. rezeki lancar, hati tenang, badan sehat, dan apa yang kamu mau pelan-pelan tercapai semua <br><br> 
+                Makasih yaa udah jadi Dewi yang dewasa, kuat, lucu, dan selalu jadi orang baik.<br><br>
+                Tetap jadi kamu yang menyenangkan yaa<br><br>
+                Love you more than words can say. <br>
+                — Keonho ❤️
+            </div>
+        </div>
+
+        <div class="gallery-section">
+            <div class="message-title" style="border-left-color:#FFCDC9;">
+                <i class="fas fa-images" style="color: #7F2020; margin-right: 12px;"></i> Kenangan Manis
+            </div>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Foto akan diisi oleh JavaScript -->
+                <div class="gallery-item"><img id="foto1" alt="Foto 1"></div>
+                <div class="gallery-item"><img id="foto2" alt="Foto 2"></div>
+                <div class="gallery-item"><img id="foto3" alt="Foto 3"></div>
+                <div class="gallery-item"><img id="foto4" alt="Foto 4"></div>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: center;">
+            <div class="music-player">
+                <button id="playPauseBtn"><i class="fas fa-play"></i></button>
+                <span class="track-name"><i class="fas fa-music"></i>  Sweet Melody - For You</span>
+                <audio id="bgMusic" loop preload="auto">
+                    <source src="lover.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </div>
+
+        <footer>
+            <i class="fas fa-heart" style="color:#7F2020;"></i> Untukmu, yang tercinta <i class="fas fa-heart" style="color:#7F2020;"></i>
+            <span style="margin-left: 12px; font-size: 0.75rem;">&copy; 2026 Azalea'sWord</span>
+        </footer>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // /* === GANTI FOTO DI SINI === */
+    // ============================================================
+    // CARA GANTI FOTO:
+    // 1. GANTI nama file di bawah dengan nama file foto kamu
+    // 2. Contoh: "fotoku.jpg", "foto-istri.png", "images/kita.jpeg"
+    // 3. Pastikan file foto ada di FOLDER yang SAMA dengan file HTML ini
+    // ============================================================
+    
+    const fotoKamu = [
+        "dw2.jpeg",   // <--- GANTI dengan nama file foto ke-1 (contoh: "selfie.jpg")
+        "dw3.jpeg",   // <--- GANTI dengan nama file foto ke-2
+        "dw4.jpeg",   // <--- GANTI dengan nama file foto ke-3
+        "dw5.jpeg"    // <--- GANTI dengan nama file foto ke-4
+    ];
+    
+    // ========== KALAU PAKAI FOTO DARI INTERNET (PASTI BERHASIL) ==========
+    // Uncomment kode di bawah ini dan comment yang di atas untuk pakai foto online
+    
+    /*
+    const fotoKamu = [
+        "https://picsum.photos/id/20/400/400",
+        "https://picsum.photos/id/64/400/400", 
+        "https://picsum.photos/id/96/400/400",
+        "https://picsum.photos/id/169/400/400"
+    ];
+    */
+    
+    // ============================================================
+    // KODE DI BAWAH INI JANGAN DIUBAH (kecuali Anda paham JavaScript)
+    // ============================================================
+    
+    // Fungsi untuk load foto dengan error handling
+    function loadFoto() {
+        const fotoElements = [
+            document.getElementById('foto1'),
+            document.getElementById('foto2'),
+            document.getElementById('foto3'),
+            document.getElementById('foto4')
+        ];
+        
+        let successCount = 0;
+        
+        for(let i = 0; i < fotoElements.length && i < fotoKamu.length; i++) {
+            if(fotoElements[i] && fotoKamu[i]) {
+                const img = fotoElements[i];
+                img.src = fotoKamu[i];
+                
+                // Jika foto gagal load, kasih pesan dan ganti dengan placeholder
+                img.onerror = function() {
+                    console.warn(`⚠️ Foto ${i+1} tidak ditemukan: ${fotoKamu[i]}`);
+                    this.src = "https://picsum.photos/id/" + (20 + i*44) + "/400/400";
+                    this.alt = `Foto ${i+1} (placeholder)`;
+                };
+                
+                img.onload = function() {
+                    successCount++;
+                    if(successCount === fotoKamu.length) {
+                        console.log("✅ Semua foto berhasil dimuat!");
+                    }
+                };
+            }
+        }
+        
+        if(fotoKamu.length > 0) {
+            console.log("📸 Mencoba memuat " + fotoKamu.length + " foto...");
+        }
+    }
+    
+    // Panggil fungsi load foto
+    loadFoto();
+    
+    // Nama penerima
+    const recipientName = "Dewi-ku";
+    const namaSpan = document.querySelector('.nama-penerima');
+    if (namaSpan) namaSpan.innerText = recipientName;
+    
+    // Hapus info panel setelah 5 detik
+    setTimeout(() => {
+        const panel = document.getElementById('infoPanel');
+        if(panel) panel.style.display = 'none';
+    }, 5000);
+    
+    // Open Gift
+    const openingDiv = document.getElementById('openingPage');
+    const mainDiv = document.getElementById('mainContent');
+    const openBtn = document.getElementById('openGiftBtn');
+    
+    openBtn.addEventListener('click', () => {
+        openingDiv.classList.add('hide');
+        setTimeout(() => {
+            mainDiv.classList.add('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            startFloatingHearts();
+            attemptAutoPlay();
+        }, 950);
+    });
+    
+    // Musik
+    const audio = document.getElementById('bgMusic');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    let isPlaying = false;
+    
+    function attemptAutoPlay() {
+        audio.play().then(() => {
+            isPlaying = true;
+            updatePlayButton();
+        }).catch(err => {
+            console.log("🔊 Klik tombol play untuk memutar musik");
+        });
+    }
+    
+    function updatePlayButton() {
+        if (isPlaying) {
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        } else {
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
+    }
+    
+    playPauseBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            audio.pause();
+            isPlaying = false;
+        } else {
+            audio.play().then(() => {
+                isPlaying = true;
+            }).catch(() => {
+                console.log("Gagal memutar musik");
+            });
+        }
+        updatePlayButton();
+    });
+    
+    // Floating Hearts
+    let heartInterval;
+    function startFloatingHearts() {
+        if(heartInterval) clearInterval(heartInterval);
+        heartInterval = setInterval(() => {
+            if(!mainDiv.classList.contains('show')) return;
+            createHeart();
+        }, 1500);
+    }
+    
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '<i class="fas fa-heart" style="color:#FF8A8A;"></i>';
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.fontSize = (Math.random() * 1 + 0.8) + 'rem';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+    }
+    
+    // Animasi scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting){
+                entry.target.style.animation = "slideUpFade 0.7s ease forwards";
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.message-card, .gallery-section, .music-player').forEach(el => {
+        el.style.opacity = "0";
+        observer.observe(el);
+    });
+    
+    const waitForMain = setInterval(() => {
+        if(mainDiv.classList.contains('show')){
+            setTimeout(() => {
+                document.querySelectorAll('.message-card, .gallery-section, .music-player').forEach(el => {
+                    el.style.opacity = "1";
+                });
+            }, 200);
+            clearInterval(waitForMain);
+        }
+    }, 100);
+    
+    updatePlayButton();
+    console.log("✨ Website siap! ✨");
+    console.log("💡 TIPS: Ganti nama file foto di bagian 'const fotoKamu = [...]'");
+    console.log("📁 Pastikan file foto .jpg/.png ada di folder yang sama dengan file HTML ini");
+</script>
+
+</body>
+</html>
